@@ -25,6 +25,7 @@ import 'ace-builds/src-noconflict/theme-dracula';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Root from '../../../../components/Root';
+import { basePath } from '../../../../utils/endpoints';
 
 class TopicData extends Root {
   state = {
@@ -267,7 +268,8 @@ class TopicData extends Root {
       selectedTopic
     } = this.state;
 
-    const pathToShare = `/ui/${selectedCluster}/topic/${selectedTopic}/data?single=true&partition=${row.partition}&offset=${row.offset}`;
+
+    const pathToShare = `${basePath}/ui/${selectedCluster}/topic/${selectedTopic}/data?single=true&partition=${row.partition}&offset=${row.offset}`;
 
     try {
       this.copyToClipboard(`${window.location.host}${pathToShare}`)
@@ -827,7 +829,7 @@ class TopicData extends Root {
                                 <span
                                     className="badge badge-primary clickable schema-value"
                                     onClick={() => {
-                                      this.redirectToSchema(obj.schema.key);
+                                      this.redirectToSchema(obj.schema.value);
                                     }}
                                 >
                           Value: {obj[col.accessor].value}

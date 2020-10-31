@@ -61,7 +61,7 @@ class Routes extends Root {
       });
   };
 
-  getCurrentUser(callback = () => {}) {
+  getCurrentUser() {
     sessionStorage.setItem('user', '');
     this.getApi(uriCurrentUser())
       .then(res => {
@@ -84,7 +84,6 @@ class Routes extends Root {
           }
         }
         this.setState({ loading: false });
-        callback();
       })
       .catch(err => {
         console.error('Error:', err);
@@ -112,6 +111,7 @@ class Routes extends Root {
 
     if (this.state.user.length <= 0) {
       this.getCurrentUser();
+      return <></>;
     }
 
     if (
@@ -119,6 +119,7 @@ class Routes extends Root {
       (sessionStorage.getItem('login') === 'true' || this.state.user === 'default')
     ) {
       this.getClusters();
+      return <></>;
     }
 
     if (!clusters.find(el => el.id === this.state.clusterId) && clusterId !== '401') {
